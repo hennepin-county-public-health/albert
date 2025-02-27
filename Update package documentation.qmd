@@ -1,0 +1,31 @@
+---
+title: "Update package"
+format: html
+editor: visual
+---
+
+## Update albert package
+
+```{r}
+library(devtools)
+library(roxygen2)
+
+getwd() #should be the albert directory if project is open
+```
+
+The first bit of code is necessary to create the package initially. It is not necessary to run it again.
+
+```{r}
+#setwd("C:/Users/NAIM001/Hennepin County/Public Health Data - Documents/Informatics/Github/HennepinCountyPublicHealth/")
+#create("albert")
+```
+
+First, add new functions to the R folder. Use this script to update package documentation when new functions are added. See the existing functions for examples of how functions should be formatted. There's probably a newer or more complex way to do this, but this works just fine for us.
+
+```{r}
+document()
+```
+
+Once the documentation has been updated, push the local changes to Github. See the Github manual for further information. The updated package can be downloaded using `devtools::install_github("HennepinCountyPublicHealth/albert")`.
+
+In addition to adding function, we may occasionally add data to the package review the steps in the 'Add data' notebook if you wish to do that as well.

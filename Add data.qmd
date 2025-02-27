@@ -1,0 +1,21 @@
+## Add data to albert
+
+```{r}
+library(tidyverse)
+```
+
+Use the existing code chunk(s) as a template for adding additional data to the albert package. After the code executes, you'll be prompted to add documentation about the data set.
+
+```{r}
+
+mpls_nbhds <- sf::read_sf("C:/Users/NAIM001/Downloads/Minneapolis_Neighborhoods/Minneapolis_Neighborhoods.shp") |>
+  janitor::clean_names() |>
+  select(nbhd_name = bdname, nbhd_number = bdnum, udi, symbol_name = symbol_nam,
+         shape_len = shape_leng, shape_area, geometry)
+
+#Save data to package
+usethis::use_data(mpls_nbhds, overwrite = TRUE)
+
+#Document data
+usethis::use_r("data")
+```
