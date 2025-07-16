@@ -1,13 +1,12 @@
 #' List Databricks volumes
 #'
-#' Use SQL queries to list Databricks volumes, their permission scheme, and the corresponding data lake location. Returns a tibble.
+#' Use SQL queries to list Databricks volumes and their permission scheme in a tibble.
 #' @param catalog the catalog that includes the volumes; likely prd_ph_source
 #' @param schema the schema that includes the volumes; raw, refined, or trusted. Default is all three.
 #' @param parent_folder optional filter; the parent folder the volume maps to
 #' @export
 
-#Primary user is identifying the volume that contains particular data, but it could also be used to create a vector of volumes that could be looped through.
-#When supplied, the "path" argument will filter the volumes to only those that include the specified string. For instance, Trusted/PublicHealth/Reference, PublicHealth, Reference could all be supplied to filter the results
+#Primary use is identifying the volume that contains particular data, but it could also be used to create a vector of volumes that could be looped through.
 list_volumes <- function(catalog = "prd_ph_source", schema = c("raw", "refined", "trusted"), parent_folder = NULL){
 
   #Ensure schema values are lowercase, and a valid level
