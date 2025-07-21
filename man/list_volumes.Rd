@@ -4,15 +4,19 @@
 \alias{list_volumes}
 \title{List Databricks volumes}
 \usage{
-list_volumes(catalogue = "prd_ph_source", schema = "health_fs", path = NULL)
+list_volumes(
+  catalog = "prd_ph_source",
+  schema = c("raw", "refined", "trusted"),
+  parent_folder = NULL
+)
 }
 \arguments{
-\item{catalogue}{the catalogue that includes the volumes; points to health_fs by default}
+\item{catalog}{the catalog that includes the volumes; likely prd_ph_source}
 
-\item{schema}{the schema that includes the volumes; points to health_fs by default}
+\item{schema}{the schema that includes the volumes; raw, refined, or trusted. Default is all three.}
 
-\item{path}{all or part of a specific data lake file path that the user wishes find the corresponding volumes for}
+\item{parent_folder}{optional filter; the parent folder the volume maps to}
 }
 \description{
-Use SQL queries to list Databricks volumes, their permission scheme, and the corresponding data lake location. Returns a tibble.
+Use SQL queries to list Databricks volumes and their permission scheme in a tibble.
 }
