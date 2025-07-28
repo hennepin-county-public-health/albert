@@ -4,11 +4,11 @@
 \alias{read_qualtrics}
 \title{Read Qualtrics data.}
 \usage{
-read_qualtrics(path)
+read_qualtrics(path, ...)
 }
 \arguments{
 \item{path}{file path}
 }
 \description{
-Read and clean .csv files in the standard Qualtrics export format.
+Read and clean csv files in the standard Qualtrics export format.
 }
