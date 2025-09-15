@@ -3,7 +3,6 @@
 export(Raw)
 export(Refined)
 export(Trusted)
-export(age_grp_55)
 export(base_blue)
 export(base_five)
 export(base_four)
