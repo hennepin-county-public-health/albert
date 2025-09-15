@@ -6,9 +6,7 @@
 #' @export
 
 get_kv_secret <- function(secret_name) {
-  scopes <- purrr::map_chr(dbutils.secrets.listScopes(), function(n) {
-    return(n$name)
-  })
+  scopes <- purrr::map_chr(dbutils.secrets.listScopes(), \(n) return(n$name))
 
   for (s in seq_along(scopes)) {
     scope <- scopes[s]
