@@ -15,6 +15,11 @@
 
 create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85){
 
+  #Make sure age isn't negative - value could be NA placeholder or error
+  if (sum(age < 0, na.rm = TRUE) != 0){
+    stop("Ages below 0 detected. Clean before group creation.")
+  }
+
   agen <- as.numeric(gsub("\\D", "", age))
 
   #Raise errors given unexpected input
