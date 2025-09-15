@@ -18,10 +18,6 @@ create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85
   agen <- as.numeric(gsub("\\D", "", age))
 
   #Raise errors given unexpected input
-  if (is.na(agen)){
-    stop("Ensure age is a numeric variable.")
-  }
-
   if (is.na(group_size) | group_size == 0){
     stop("Specify a group size of at least 1.")
   }
@@ -40,12 +36,14 @@ create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85
   range = group_min:group_max
 
   purrr::map_chr(agen, function(y){
-    if (y < group_min)
-    {paste0("<", group_min)}
-    else if (y >= group_max)
-    {paste0(group_max, "+")}
-    else
-    {paste0(max(range[range %% group_size == 0 & range <= y]), "-",
-            max(range[range %% group_size == 0 & range <= y]) + (group_size - 1))}
+    if (is.na(y)){
+      "Unknown"
+    } else if (y < group_min){
+      paste0("<", group_min)
+    } else if (y >= group_max){
+      paste0(group_max, "+")
+    } else {
+      paste0(max(range[range %% group_size == 0 & range <= y]), "-",
+             max(range[range %% group_size == 0 & range <= y]) + (group_size - 1))}
   })
 }
