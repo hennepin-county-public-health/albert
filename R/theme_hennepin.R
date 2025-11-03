@@ -5,8 +5,10 @@
 
 theme_hennepin <- function (){
 
-  if (!"systemfonts" %in% installed.packages()){
-    install.packages('systemfonts')
+  for (package in c("systemfonts", "extrafont")){
+    if (!package %in% installed.packages()){
+      install.packages(package)
+    }
   }
 
   #If using Databricks, must add font files
@@ -14,6 +16,12 @@ theme_hennepin <- function (){
     file.copy(from = "/dbfs/mnt/phmdw/Trusted/PublicHealth/Utilities/Segoe UI/",
               to = "/usr/share/fonts/",
               recursive = TRUE)
+  }
+
+  #if using extra fonts for the first time, will need to perform some extra operations
+  if (!"Segoe UI Light" %in% extrafont::fonts()){
+    extrafont::ttf_import(pattern = "segoeui")
+    extrafont::loadfonts(device = "win", quiet = TRUE)
   }
 
   systemfonts::register_variant(
