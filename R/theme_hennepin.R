@@ -18,11 +18,12 @@ theme_hennepin <- function (){
               recursive = TRUE)
   }
 
-  #if using extra fonts for the first time, will need to perform some extra operations
+  #if using fonts for the first time, will need to perform some extra operations
   if (!"Segoe UI Light" %in% extrafont::fonts()){
     extrafont::ttf_import(pattern = "segoeui")
-    extrafont::loadfonts(device = "win", quiet = TRUE)
   }
+
+  extrafont::loadfonts(device = "win", quiet = TRUE)
 
   systemfonts::register_variant(
     name = "Segoe UI Light",
