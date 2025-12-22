@@ -7,7 +7,7 @@
 #' @export
 
 #Primary use is identifying the volume that contains particular data, but it could also be used to create a vector of volumes that could be looped through.
-list_volumes <- function(catalog = "prd_ph_source", schema = c("raw", "refined", "trusted"), parent_folder = NULL){
+list_volumes <- function(catalog = "prd_public_health_source", schema = c("raw", "refined", "trusted"), parent_folder = NULL){
 
   #Ensure schema values are lowercase, and a valid level
   schemas <- purrr::map_chr(schema, ~tolower(.))
