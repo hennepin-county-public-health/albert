@@ -5,7 +5,7 @@
 \title{List Databricks volumes}
 \usage{
 list_volumes(
-  catalog = "prd_ph_source",
+  catalog = "prd_public_health_source",
   schema = c("raw", "refined", "trusted"),
   parent_folder = NULL
 )
