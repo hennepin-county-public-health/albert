@@ -1,22 +1,16 @@
 #' List Databricks volumes
 #'
-#' Use SQL queries to list Databricks volumes and their permission scheme in a tibble.
-#' @param catalog the catalog that includes the volumes; likely prd_ph_source
-#' @param schema the schema that includes the volumes; raw, refined, or trusted. Default is all three.
+#' Use SQL queries to list Databricks volumes and their permission scheme in a tibble. Use to identify the volume that contains particular data or create a vector of volumes that could be looped through.
+#' @param catalog the catalog that includes the volumes
+#' @param schema the schema that includes the volumes
 #' @param parent_folder optional filter; the parent folder the volume maps to
 #' @export
 
 #Primary use is identifying the volume that contains particular data, but it could also be used to create a vector of volumes that could be looped through.
-list_volumes <- function(catalog = "prd_public_health_source", schema = c("raw", "refined", "trusted"), parent_folder = NULL){
+list_volumes <- function(catalog, schema, parent_folder = NULL){
 
   #Ensure schema values are lowercase, and a valid level
   schemas <- purrr::map_chr(schema, ~tolower(.))
-
-  purrr::walk(schemas, function(s){
-    if (!s %in% c("raw", "refined", "trusted")){
-      stop(paste0(s, " schema/level not found. Valid values are raw, refined, and trusted."))
-    }
-  })
 
   #SQL query to get volumes in catalog and schema
   volumes <- purrr::map(schemas, function(s){
@@ -48,10 +42,10 @@ list_volumes <- function(catalog = "prd_public_health_source", schema = c("raw",
   #If parent folder is provided, filter volumes to match
   if (!is.null(parent_folder)){
 
-    #Convert to kebab-case if necessary
+    #Convert to snake_case if necessary
     parent_folder <- parent_folder |>
       stringr::str_replace_all("([a-z])([A-Z])", "\\1 \\2") |>
-      stringr::str_replace_all("\\s", "-") |>
+      stringr::str_replace_all("\\s", "_") |>
       stringr::str_to_lower()
 
     volumes <- volumes |>
