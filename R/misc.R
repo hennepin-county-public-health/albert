@@ -4,7 +4,7 @@
 #'
 #' @export
 
-Raw <- "/dbfs/mnt/phmdw/Raw/PublicHealth/"
+Raw <- "/Volumes/prd_public_health_source/raw"
 
 #' Data lake folder path.
 #'
@@ -12,7 +12,7 @@ Raw <- "/dbfs/mnt/phmdw/Raw/PublicHealth/"
 #'
 #' @export
 
-Refined <- "/dbfs/mnt/phmdw/Refined/PublicHealth/"
+Refined <- "/Volumes/prd_public_health_source/refined"
 
 #' Data lake folder path.
 #'
@@ -20,7 +20,7 @@ Refined <- "/dbfs/mnt/phmdw/Refined/PublicHealth/"
 #'
 #' @export
 
-Trusted <- "/dbfs/mnt/phmdw/Trusted/PublicHealth/"
+Trusted <- "/Volumes/prd_public_health_source/trusted/"
 
 #' Data lake folder path.
 #'
@@ -28,7 +28,7 @@ Trusted <- "/dbfs/mnt/phmdw/Trusted/PublicHealth/"
 #'
 #' @export
 
-reference <- "/dbfs/mnt/phmdw/Trusted/PublicHealth/Reference/"
+reference <- "/Volumes/prd_public_health_source/trusted/reference"
 
 #' Data lake volume path.
 #'
