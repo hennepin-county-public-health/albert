@@ -28,7 +28,7 @@ Trusted <- "/Volumes/prd_public_health_source/trusted/"
 #'
 #' @export
 
-reference <- "/Volumes/prd_public_health_source/trusted/reference"
+reference <- "/Volumes/prd_public_health_source/trusted/reference/"
 
 #' Data lake volume path.
 #'
