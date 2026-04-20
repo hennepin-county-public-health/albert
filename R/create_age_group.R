@@ -5,13 +5,14 @@
 #' @param group_size the size of the age groups (besides the minimum and maximum groups)
 #' @param group_min the upper cutoff of the bottom group (i.e 10 for "<10")
 #' @param group_max the bottom cutoff for the top group (i.e. 85 for "85+" )
-#' @returns a character vector.
+#' @returns a character vector
 #' @examples
 #' ages <- data.frame(age = 1:100)
 #' create_age_group(ages[12,])
 #'
 #' Or use inside of mutate()
 #' dplyr::mutate(ages, age_group = create_age_group(age))
+#' @export
 
 create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85){
 

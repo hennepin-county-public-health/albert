@@ -1,29 +1,5 @@
 #' Data lake folder path.
 #'
-#' Raw folder path
-#'
-#' @export
-
-Raw <- "/Volumes/prd_public_health_source/raw"
-
-#' Data lake folder path.
-#'
-#' Refined folder path
-#'
-#' @export
-
-Refined <- "/Volumes/prd_public_health_source/refined"
-
-#' Data lake folder path.
-#'
-#' Trusted folder path
-#'
-#' @export
-
-Trusted <- "/Volumes/prd_public_health_source/trusted/"
-
-#' Data lake folder path.
-#'
 #' Trusted reference folder path
 #'
 #' @export

@@ -16,7 +16,7 @@ create_age_group(age, group_size = 5, group_min = 10, group_max = 85)
 \item{group_max}{the bottom cutoff for the top group (i.e. 85 for "85+" )}
 }
 \value{
-a character vector.
+a character vector
 }
 \description{
 Generate age groups based on age value. Most potential age group schemes should be achievable, barring those with unequally sized buckets. Function defaults match Census standards.
