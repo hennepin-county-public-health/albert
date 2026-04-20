@@ -4,13 +4,15 @@
 \alias{fix_city}
 \title{Clean city names.}
 \usage{
-fix_city(data, x)
+fix_city(data, variable, path)
 }
 \arguments{
 \item{data}{a dataframe}
 
-\item{x}{name of city variable}
+\item{variable}{name of city variable}
+
+\item{path}{path to CityNameFix.txt}
 }
 \description{
-Cleans all city names of common errors using the CityNameFix.txt file.
+Cleans city names of common errors using the CityNameFix.txt file.
 }
