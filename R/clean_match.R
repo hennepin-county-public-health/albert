@@ -33,7 +33,7 @@ clean_match <- function(x, first = "first_name", last = "last_name", multi_flag 
 
   } else {
 
-    message(paste(sum(temp$last_flag), "potential multi-part last names IDed."))
+    message(paste(sum(temp$last_flag, na.rm = TRUE), "potential multi-part last names IDed."))
     return(temp)
 
   }
