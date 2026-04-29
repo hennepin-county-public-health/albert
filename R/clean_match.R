@@ -17,7 +17,7 @@
 #makes up either the beginning or end of the multipart name. If so, adjust up to a minimum value such as .9. Could condition this on first name being
 #a perfect match.
 
-clean_match <- function(x, first = "first_name", last = "last_name", multi_flag = FALSE, replace_uniode = TRUE){
+clean_match <- function(x, first = "first_name", last = "last_name", multi_flag = FALSE, replace_unicode = TRUE){
   temp <- x |>
     dplyr::mutate({{last}} := stringr::str_to_title(!!sym(last)), #next line will have issues if its already all upper
                   last_flag = ifelse(stringr::str_detect(!!sym(last), "\\-|^[:upper:]\\w\\w\\w+[:upper:]\\w\\w\\w+"), 1, 0),
