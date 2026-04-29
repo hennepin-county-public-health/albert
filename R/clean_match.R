@@ -18,6 +18,17 @@
 #a perfect match.
 
 clean_match <- function(x, first = "first_name", last = "last_name", multi_flag = FALSE, replace_unicode = TRUE){
+
+  if (replace_unicode == TRUE){
+    x <- x |>
+      dplyr::mutate(dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ñ", "n")),
+                    dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "á", "a")),
+                    dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "é", "e")),
+                    dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "í", "i")),
+                    dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ó", "o")),
+                    dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ú", "u")))
+  }
+
   temp <- x |>
     dplyr::mutate({{last}} := stringr::str_to_title(!!sym(last)), #next line will have issues if its already all upper
                   last_flag = ifelse(stringr::str_detect(!!sym(last), "\\-|^[:upper:]\\w\\w\\w+[:upper:]\\w\\w\\w+"), 1, 0),
@@ -27,16 +38,6 @@ clean_match <- function(x, first = "first_name", last = "last_name", multi_flag 
                   {{last}} := stringr::str_trim(!!sym(last)),
                   last_flag = ifelse(stringr::str_detect(!!sym(last), "\\s"), 1, last_flag),
                   dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_remove_all(.x, " ")))
-
-  if (replace_unicode == TRUE){
-    temp <- temp |>
-      mutate(dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ñ", "n")),
-             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "á", "a")),
-             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "é", "e")),
-             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "í", "i")),
-             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ó", "o")),
-             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ú", "u")))
-  }
 
   if (multi_flag == FALSE){
 
