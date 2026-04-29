@@ -5,6 +5,7 @@
 #' @param first name of variable with first name
 #' @param last name of variable with first name
 #' @param multi_flag will flag last names that appear to be multi-part for use later in the matching process
+#' @param replace_unicode replace common unicode characters: ñ, á, é, í, ó, ú
 #' @export
 
 #One common issue is that people who have a multi-part/hypenated last name in one data source receive a lower match weight than is reasonable
@@ -16,7 +17,7 @@
 #makes up either the beginning or end of the multipart name. If so, adjust up to a minimum value such as .9. Could condition this on first name being
 #a perfect match.
 
-clean_match <- function(x, first = "first_name", last = "last_name", multi_flag = FALSE){
+clean_match <- function(x, first = "first_name", last = "last_name", multi_flag = FALSE, replace_uniode = TRUE){
   temp <- x |>
     dplyr::mutate({{last}} := stringr::str_to_title(!!sym(last)), #next line will have issues if its already all upper
                   last_flag = ifelse(stringr::str_detect(!!sym(last), "\\-|^[:upper:]\\w\\w\\w+[:upper:]\\w\\w\\w+"), 1, 0),
@@ -26,6 +27,16 @@ clean_match <- function(x, first = "first_name", last = "last_name", multi_flag 
                   {{last}} := stringr::str_trim(!!sym(last)),
                   last_flag = ifelse(stringr::str_detect(!!sym(last), "\\s"), 1, last_flag),
                   dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_remove_all(.x, " ")))
+
+  if (replace_unicode == TRUE){
+    temp <- temp |>
+      mutate(dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ñ", "n")),
+             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "á", "a")),
+             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "é", "e")),
+             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "í", "i")),
+             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ó", "o")),
+             dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_replace_all(.x, "ú", "u")))
+  }
 
   if (multi_flag == FALSE){
 
