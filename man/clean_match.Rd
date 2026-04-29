@@ -9,7 +9,7 @@ clean_match(
   first = "first_name",
   last = "last_name",
   multi_flag = FALSE,
-  replace_uniode = TRUE
+  replace_unicode = TRUE
 )
 }
 \arguments{
