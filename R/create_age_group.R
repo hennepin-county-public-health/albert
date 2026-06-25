@@ -5,6 +5,7 @@
 #' @param group_size the size of the age groups (besides the minimum and maximum groups)
 #' @param group_min the upper cutoff of the bottom group (i.e 10 for "<10")
 #' @param group_max the bottom cutoff for the top group (i.e. 85 for "85+" )
+#' @param group_infants if true, will group all infants into an "<1" group regardless of group_min. Useful when infant outcomes should be categorized separately than those for toddlers.
 #' @returns a character vector
 #' @examples
 #' ages <- data.frame(age = 1:100)
@@ -14,7 +15,7 @@
 #' dplyr::mutate(ages, age_group = create_age_group(age))
 #' @export
 
-create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85){
+create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85, group_infants = FALSE){
 
   #Make sure age isn't negative - value could be NA placeholder or error
   if (sum(age < 0, na.rm = TRUE) != 0){
@@ -45,9 +46,11 @@ create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85
 
   range = group_min:group_max
 
-  purrr::map_chr(agen, function(y){
+  temp <- purrr::map_chr(agen, function(y){
     if (is.na(y)){
       "Unknown"
+    } else if (y == 0 & group_infants == TRUE){
+      "<1"
     } else if (y < group_min){
       paste0("<", group_min)
     } else if (y >= group_max){
@@ -56,4 +59,6 @@ create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85
       paste0(max(range[range %% group_size == 0 & range <= y]), "-",
              max(range[range %% group_size == 0 & range <= y]) + (group_size - 1))}
   })
+
+  return(temp)
 }
