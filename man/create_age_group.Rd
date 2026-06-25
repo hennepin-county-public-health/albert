@@ -4,7 +4,13 @@
 \alias{create_age_group}
 \title{Generate age groups.}
 \usage{
-create_age_group(age, group_size = 5, group_min = 10, group_max = 85)
+create_age_group(
+  age,
+  group_size = 5,
+  group_min = 10,
+  group_max = 85,
+  group_infants = FALSE
+)
 }
 \arguments{
 \item{age}{age column in a dataframe}
@@ -14,6 +20,8 @@ create_age_group(age, group_size = 5, group_min = 10, group_max = 85)
 \item{group_min}{the upper cutoff of the bottom group (i.e 10 for "<10")}
 
 \item{group_max}{the bottom cutoff for the top group (i.e. 85 for "85+" )}
+
+\item{group_infants}{if true, will group all infants into an "<1" group regardless of group_min. Useful when infant outcomes should be categorized separately than those for toddlers.}
 }
 \value{
 a character vector
