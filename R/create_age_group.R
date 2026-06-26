@@ -49,8 +49,10 @@ create_age_group <- function(age, group_size = 5, group_min = 10, group_max = 85
   temp <- purrr::map_chr(agen, function(y){
     if (is.na(y)){
       "Unknown"
-    } else if (y == 0 & group_infants == TRUE){
+    } else if (group_infants == TRUE & y == 0){
       "<1"
+    } else if (group_infants == TRUE & y < group_min){
+      paste0("1-", group_min - 1)
     } else if (y < group_min){
       paste0("<", group_min)
     } else if (y >= group_max){
