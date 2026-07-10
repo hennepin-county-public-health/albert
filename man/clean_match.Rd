@@ -19,7 +19,7 @@ clean_match(
 
 \item{last}{name of variable with first name}
 
-\item{multi_flag}{will flag last names that appear to be multi-part for use later in the matching process}
+\item{multi_flag}{will flag last names that appear to be multi-part for use later in the matching process. Also creates a separate field to capture the version of the last name with spaces preserved.}
 
 \item{replace_unicode}{replace common unicode characters: ñ, á, é, í, ó, ú}
 }
