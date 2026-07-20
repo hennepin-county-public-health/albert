@@ -3,7 +3,7 @@
 \docType{data}
 \name{hc_sequential}
 \alias{hc_sequential}
-\title{Data lake volume path.}
+\title{HC Sequential Color Palette}
 \format{
 An object of class \code{character} of length 10.
 }
@@ -11,6 +11,6 @@ An object of class \code{character} of length 10.
 hc_sequential
 }
 \description{
-Beginning of all volume paths
+Commonly used default colors from visualization guide
 }
 \keyword{datasets}

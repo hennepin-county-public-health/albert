@@ -11,6 +11,6 @@ An object of class \code{character} of length 7.
 hc_categorical
 }
 \description{
-Commonly used default colors
+Commonly used default colors from visualization guide
 }
 \keyword{datasets}
