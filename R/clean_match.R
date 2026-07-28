@@ -32,8 +32,8 @@ clean_match <- function(x, first = "first_name", last = "last_name", multi_flag 
   temp <- x |>
     dplyr::mutate({{last}} := stringr::str_to_title(!!sym(last)), #next line will have issues if its already all upper
                   last_flag = ifelse(stringr::str_detect(!!sym(last), "\\-|^[:upper:]\\w\\w\\w+[:upper:]\\w\\w\\w+"), 1, 0),
-                  last_name_raw = str_remove_all(!!sym(last), "[[:punct:]&&[^-]]"),
-                  last_name_raw = str_replace_all(last_name_raw, "-", " "),
+                  last_name_raw = stringr::str_remove_all(!!sym(last), "[[:punct:]&&[^-]]"),
+                  last_name_raw = stringr::str_replace_all(last_name_raw, "-", " "),
                   dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last)), ~stringr::str_remove_all(.x, "[[:punct:]]")),
                   dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last), last_name_raw), toupper),
                   dplyr::across(c(tidyselect::all_of(first), tidyselect::all_of(last), last_name_raw), ~stringr::str_remove_all(.x, " JR| IV$| III| II| SR$")),

@@ -7,15 +7,15 @@
 #' @export
 
 clean_antibiotics <- function(data, input = "antibiotic_treatment", output = "antibiotic_treatment"){
-  
+
   cleaned_data <- data |>
-    dplyr::mutate(max_drugs = str_count(!!sym(input),",") + 1,
+    dplyr::mutate(max_drugs = stringr::str_count(!!sym(input),",") + 1,
                   max_drugs = max(max_drugs, na.rm = TRUE)) |>
     #separate_wider_delim(!!sym(input), names = paste0("xab", 1:max(.$max_drugs)), delim = ",", too_few = "align_start", too_many = "error", cols_remove = FALSE) |>
     #First, remove dosage and other information from each drug in the field to leave only the base name. May need to sometimes update this with new conversions.
-    separate_wider_delim(!!sym(input), names = c("xab1", "xab2", "xab3"), delim = ",", too_few = "align_start", too_many = "error", cols_remove = FALSE) |>
-    dplyr::mutate(dplyr::across(tidyr::starts_with("xab"), stringr::str_trim),
-                  dplyr::across(tidyr::starts_with("xab"), ~dplyr::case_when(
+    tidyr::separate_wider_delim(!!sym(input), names = c("xab1", "xab2", "xab3"), delim = ",", too_few = "align_start", too_many = "error", cols_remove = FALSE) |>
+    dplyr::mutate(dplyr::across(tidyselect::starts_with("xab"), stringr::str_trim),
+                  dplyr::across(tidyselect::starts_with("xab"), ~dplyr::case_when(
                     is.na(.) | . == "" ~ "Unknown",
                     stringr::str_length(.) == 1 ~ "Unknown",
                     !is.na(as.numeric(.)) ~ "Unknown",
@@ -49,8 +49,7 @@ clean_antibiotics <- function(data, input = "antibiotic_treatment", output = "an
                     stringr::str_detect(stringr::str_to_lower(.), "^diflucan") ~ "Fluconazole",
                     stringr::str_detect(stringr::str_to_lower(.), "^bactrim ds") ~ "Trimethoprim/Sulfamethoxazole",
                     stringr::str_detect(stringr::str_to_lower(.), "^cefpodoxime") ~ "Cefpodoxime",
-                    
-                    
+
                     stringr::str_detect(stringr::str_to_lower(.), "azithromycin|axithromycin") ~ "Azithromycin",
                     stringr::str_detect(stringr::str_to_lower(.), "levaquin") ~ "Levaquin",
                     stringr::str_detect(stringr::str_to_lower(.), "ceftriaxone|rocephin") ~ "Ceftriaxone",
@@ -84,7 +83,7 @@ clean_antibiotics <- function(data, input = "antibiotic_treatment", output = "an
                     stringr::str_detect(stringr::str_to_lower(.), "bactrim ds") ~ "Trimethoprim/Sulfamethoxazole",
                     stringr::str_detect(stringr::str_to_lower(.), "cefpodoxime") ~ "Cefpodoxime",
                     .default = .)),
-                  
+
                   xab2 = dplyr::if_else(xab1 == xab2, "Unknown", xab2),
                   xab3 = dplyr::if_else(xab1 == xab3 | xab2 == xab3, "Unknown", xab3),
                   interm = dplyr::case_when(
@@ -100,13 +99,13 @@ clean_antibiotics <- function(data, input = "antibiotic_treatment", output = "an
         is.na(xab32) ~ purrr::pmap_chr(list(xab12, xab22), ~paste(sort(c(...)), collapse = ",")),
         is.na(xab22) ~ purrr::pmap_chr(list(xab12, xab32), ~paste(sort(c(...)), collapse = ",")),
         .default = purrr::pmap_chr(list(xab12, xab22, xab32), ~paste(sort(c(...)), collapse = ","))))
-  
+
   #Currently this function is only set up to handle a max of 3 drugs in one column. Could expand if necessary.
   #In this case, combine_regimens would also need to be updated
   if (max(cleaned_data$max_drugs) > 3) {
     stop("More than three drugs supplied in one column. Edit function or underlying data to proceed.")
   }
-  
-  return(cleaned_data |> select(-starts_with("xab")))
-  
+
+  return(cleaned_data |> dplyr::select(-starts_with("xab")))
+
 }

@@ -10,5 +10,5 @@ conditional_display(data)
 \item{data}{A dataframe}
 }
 \description{
-Display returns an error if dataframe is empty. Using this modified version to avoid that to prevent script-stopping errors.
+Intended for use in Databricks only. Display() returns an error if dataframe is empty. Using this modified version to avoid that to prevent script-stopping errors.
 }
