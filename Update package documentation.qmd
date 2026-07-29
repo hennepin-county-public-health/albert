@@ -44,7 +44,12 @@ deps <- c("dplyr",
           "ggplot2",
           "tidyselect",
           
-          "rvest") #not part of the core tidyverse
+          "rvest", #flag_nicknames; not part of the core tidyverse
+          
+          "AzureAuth", #adls functions
+          "AzureStor", #adls functions
+          "arrow" #adls functions
+          )
 
 for (d in deps){
   usethis::use_package(d)

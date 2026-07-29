@@ -12,6 +12,9 @@ Depends:
     R (>= 2.10)
 LazyData: true
 Imports: 
+    arrow,
+    AzureAuth,
+    AzureStor,
     dplyr,
     ggplot2,
     lubridate,
