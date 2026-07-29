@@ -17,7 +17,7 @@ match_multipart_names <- function(x){
       #First, flag those with one multi-part name but not two.
       last_flag = last_flag_1 + last_flag_2,
       #Then, test whether the single name is part of the multi-part one.
-      last_partial = case_when(
+      last_partial = dplyr::case_when(
         last_flag != 1 ~ 0,
         last_flag_1 == 1 & stringr::str_detect(last_name_1, paste0("^", last_name_2, ".*$")) ~ 1,
         last_flag_1 == 1 & stringr::str_detect(last_name_1, paste0("^.*", last_name_2, "$")) ~ 1,
@@ -31,7 +31,7 @@ match_multipart_names <- function(x){
         is.na(last_name_switched) ~ 0,
         last_name_switched == last_name_raw_2 ~ 1,
         .default = 0)) |>
-    select(-last_flag, -last_name_switched, -last_name_raw_1, -last_name_raw_2) #remove these fields, unless we want them for other things
+    dplyr::select(-last_flag, -last_name_switched, -last_name_raw_1, -last_name_raw_2) #remove these fields, unless we want them for other things
 
   return(temp)
 }

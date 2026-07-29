@@ -49,7 +49,7 @@ list_volumes <- function(catalog, schema, parent_folder = NULL){
       stringr::str_to_lower()
 
     volumes <- volumes |>
-      filter(str_detect(volume, parent_folder))
+      filter(stringr::str_detect(volume, parent_folder))
 
     if (nrow(volumes) == 0){
       stop("Parent folder filter returned no volumes. Is folder name correct?")
