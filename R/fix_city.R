@@ -9,13 +9,13 @@
 fix_city <- function(data, variable, path){
 
   city_fix <- readr::read_csv(paste0(path, "CityNameFix.txt")) |>
-    janitor::clean_names() |>
+    to_snake_case() |>
     dplyr::distinct()
 
   temp <- data |>
     dplyr::mutate({{variable}} := toupper(!!sym(variable))) |>
     dplyr::left_join(city_fix, by = setNames("incorrect_city", variable)) %>%
-    pipe_print(paste("----", nrow(filter(., !is.na(corrected_city))), "CITY NAMES FIXED ----")) |>
+    pipe_print(paste("----", nrow(dplyr::filter(., !is.na(corrected_city))), "CITY NAMES FIXED ----")) |>
     dplyr::mutate({{variable}} := ifelse(!is.na(corrected_city), corrected_city, !!sym(variable))) |>
     dplyr::select(-c(objectid, corrected_city))
 

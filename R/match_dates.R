@@ -40,9 +40,9 @@ match_dates <- function(data, date1, date2, exact = FALSE, switch = TRUE, thresh
       dplyr::mutate(dif = abs(d1_num - d2_num)) |>
       dplyr::filter(d1 == d2 | dif <= as.numeric(threshold) | swap == 1)
 
-    print(paste(nrow(filter(dt_final, d1 == d2)), "exact date matches"))
-    print(paste(nrow(filter(dt_final, dif <= as.numeric(threshold) & d1 != d2)), "retained because difference was within threshold."))
-    print(paste(nrow(filter(dt_final, !(dif <= as.numeric(threshold) | d1 == d2) & swap == 1)), "retained because month and day may be switched."))
+    print(paste(nrow(dplyr::filter(dt_final, d1 == d2)), "exact date matches"))
+    print(paste(nrow(dplyr::filter(dt_final, dif <= as.numeric(threshold) & d1 != d2)), "retained because difference was within threshold."))
+    print(paste(nrow(dplyr::filter(dt_final, !(dif <= as.numeric(threshold) | d1 == d2) & swap == 1)), "retained because month and day may be switched."))
     print(paste(nrow(dt_trans) - nrow(dt_final), "date mismatches dropped."))
 
   } else { #keep exact matches, differences w/in threshold
@@ -51,8 +51,8 @@ match_dates <- function(data, date1, date2, exact = FALSE, switch = TRUE, thresh
       dplyr::mutate(dif = abs(d1_num - d2_num)) |>
       dplyr::filter(d1 == d2 | dif <= as.numeric(threshold))
 
-    print(paste(nrow(filter(dt_final, d1 == d2)), "exact date matches"))
-    print(paste(nrow(filter(dt_final, dif <= as.numeric(threshold) & d1 != d2)), "differences within threshold"))
+    print(paste(nrow(dplyr::filter(dt_final, d1 == d2)), "exact date matches"))
+    print(paste(nrow(dplyr::filter(dt_final, dif <= as.numeric(threshold) & d1 != d2)), "differences within threshold"))
     print(paste(nrow(dt_trans) - nrow(dt_final), "date mismatches dropped."))
 
   }

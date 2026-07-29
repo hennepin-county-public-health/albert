@@ -8,9 +8,9 @@
 #Only requiring one # at the start would also occasionally catch additional addresses, although I generally think this is better.
 
 is_address <- function(x){
-  map_lgl(x, function(y){
-    result <- str_detect(y, "^\\d\\d.*\\s\\w")
-    
+  purrr::map_lgl(x, function(y){
+    result <- stringr::str_detect(y, "^\\d\\d.*\\s\\w")
+
     if (is.na(result)){
       return(FALSE)
     } else {

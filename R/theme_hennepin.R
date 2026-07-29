@@ -3,17 +3,20 @@
 #' Sensible default theme based on Hennepin County visualization guide. Can use package color palettes to supplement.
 #' @export
 
-theme_hennepin <- function (){
+theme_hennepin <- function (db_path = NULL){
 
+  #I'm not sure if this is a great way to handle this or not
+  #I would rather not make these full dependencies, since users may not use this function
   for (package in c("systemfonts", "extrafont")){
     if (!package %in% installed.packages()){
+      message(paste("Installing", package))
       install.packages(package)
     }
   }
 
   #If using Databricks, must add font files
   if (Sys.info()['sysname'] == "Linux"){
-    file.copy(from = "/dbfs/mnt/phmdw/Trusted/PublicHealth/Utilities/Segoe UI/",
+    file.copy(from = db_path,
               to = "/usr/share/fonts/",
               recursive = TRUE)
   }
@@ -31,21 +34,21 @@ theme_hennepin <- function (){
     weight = "light"
   )
 
-  theme_minimal(base_family = "Segoe UI") %+replace%
-    theme(
-      plot.title = element_text(size = 12, color = "black", vjust = 2, family = "Segoe UI"),
-      plot.subtitle = element_text(size = 12, vjust = 1, family = "Segoe UI Light"),
-      plot.caption = element_text(size = 10, hjust = 1, family = "Segoe UI Light"),
-      plot.background = element_rect(fill = "#F8F8F8", color = "#F8F8F8"),
-      axis.title = element_text(size = 11),
-      axis.text = element_text(size = 11, family = "Segoe UI Light"),
-      axis.ticks = element_line(colour = "light grey"),
-      panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(color = "light grey"),
-      legend.title = element_text(size = 11, family = "Segoe UI Light"),
-      legend.background = element_rect(fill = "transparent", color = NA),
-      legend.key = element_rect(fill = "transparent", color = NA),
-      axis.line = element_line(colour = "light grey", linewidth = rel(1)),
+  ggplot2::theme_minimal(base_family = "Segoe UI") %+replace%
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(size = 12, color = "black", vjust = 2, family = "Segoe UI"),
+      plot.subtitle = ggplot2::element_text(size = 12, vjust = 1, family = "Segoe UI Light"),
+      plot.caption = ggplot2::element_text(size = 10, hjust = 1, family = "Segoe UI Light"),
+      plot.background = ggplot2::element_rect(fill = "#F8F8F8", color = "#F8F8F8"),
+      axis.title = ggplot2::element_text(size = 11),
+      axis.text = ggplot2::element_text(size = 11, family = "Segoe UI Light"),
+      axis.ticks = ggplot2::element_line(colour = "light grey"),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_line(color = "light grey"),
+      legend.title = ggplot2::element_text(size = 11, family = "Segoe UI Light"),
+      legend.background = ggplot2::element_rect(fill = "transparent", color = NA),
+      legend.key = ggplot2::element_rect(fill = "transparent", color = NA),
+      axis.line = ggplot2::element_line(colour = "light grey", linewidth = rel(1)),
       complete = FALSE
     )
 }

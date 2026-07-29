@@ -7,9 +7,9 @@
 #' @export
 
 impute_date <- function(x, month = "06", day = "15"){
-  x2 <- str_remove_all(x, "[.]")
+  x2 <- stringr::str_remove_all(x, "[.]")
 
-  case_when(
+  dplyr::case_when(
     is.na(x2) ~ as.character(NA),
     nchar(x2)==8 ~ x2,
     nchar(x2)==6 ~ paste0(x2, month),
