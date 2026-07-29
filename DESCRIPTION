@@ -2,8 +2,7 @@ Package: albert
 Title: Public Health Informatics
 Version: 0.0.0.9000
 Authors@R: 
-    person("Nate", "Bean", , "nathan.bean@hennepin.us", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Nate", "Bean", , "nathan.bean@hennepin.us", role = c("aut", "cre"))
 Description: Functions used by the Hennepin County Public Health Informatics team.
 License: Apache License (>= 2)
 Encoding: UTF-8

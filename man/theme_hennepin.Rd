@@ -4,7 +4,7 @@
 \alias{theme_hennepin}
 \title{Hennepin County-inspired ggplot2 theme}
 \usage{
-theme_hennepin()
+theme_hennepin(db_path = NULL)
 }
 \description{
 Sensible default theme based on Hennepin County visualization guide. Can use package color palettes to supplement.
