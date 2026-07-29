@@ -29,3 +29,24 @@ document()
 Once the documentation has been updated, push the local changes to Github. See the Github manual for further information. The updated package can be downloaded using `devtools::install_github("HennepinCountyPublicHealth/albert")`.
 
 In addition to adding function, we may occasionally add data to the package review the steps in the 'Add data' notebook if you wish to do that as well.
+
+In addition, when I use code to other packages I add them as dependencies to albert using this code. This will add it under "imports" in the DESCRIPTION file.
+
+```{r}
+deps <- c("dplyr", 
+          "stringr",
+          "purrr",
+          "tidyr",
+          "tidyselect",
+          "tibble",
+          "readr",
+          "lubridate",
+          "ggplot2",
+          "tidyselect",
+          
+          "rvest") #not part of the core tidyverse
+
+for (d in deps){
+  usethis::use_package(d)
+}
+```
