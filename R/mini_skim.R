@@ -8,7 +8,7 @@
 mini_skim <- function(x, display = TRUE){
   types <- x |>
     purrr::map(class) |>
-    purrr::list_rbind() |>
+    dplyr::bind_rows() |>
     tidyr::pivot_longer(cols = tidyselect::everything(), names_to = "Variable", values_to = "Type")
 
   type_count <- types %>% dplyr::count(Type)
