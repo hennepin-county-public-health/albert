@@ -20,7 +20,7 @@ list_files_adls <- function(path = "", endpoint = Sys.getenv("ADLS_ENDPOINT"), c
     stop("'container' environmental variable not found. Verify that it's been successfully created.")
   }
 
-  if (!(str_detect(tolower(path), "^[^/]+/trusted/") | str_detect(tolower(path), "^trusted/"))){
+  if (!(stringr::str_detect(tolower(path), "^[^/]+/trusted/") | stringr::str_detect(tolower(path), "^trusted/"))){
     stop("This function is only intended to work with trusted data. Verify the specified file path is in trusted.")
   }
 

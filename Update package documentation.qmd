@@ -44,6 +44,7 @@ deps <- c("dplyr",
           "ggplot2",
           "tidyselect",
           
+          "readxl", #read
           "rvest", #flag_nicknames; not part of the core tidyverse
           
           "AzureAuth", #adls functions

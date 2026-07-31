@@ -20,7 +20,7 @@ write_csv_adls <- function(x, file, endpoint = Sys.getenv("ADLS_ENDPOINT"), cont
   }
 
   #Error if not accessing trusted file
-  if (!(str_detect(tolower(file), "^[^/]+/trusted/") | str_detect(tolower(file), "^trusted/"))){
+  if (!(stringr::str_detect(tolower(file), "^[^/]+/trusted/") | stringr::str_detect(tolower(file), "^trusted/"))){
     stop("This function is only intended to write trusted data. Verify the file is being written to trusted.")
   }
 
@@ -102,7 +102,7 @@ write_parquet_adls <- function(x, file, endpoint = Sys.getenv("ADLS_ENDPOINT"), 
   }
 
   #Error if not accessing trusted file
-  if (!(str_detect(tolower(file), "^[^/]+/trusted/") | str_detect(tolower(file), "^trusted/"))){
+  if (!(stringr::str_detect(tolower(file), "^[^/]+/trusted/") | stringr::str_detect(tolower(file), "^trusted/"))){
     stop("This function is only intended to write trusted data. Verify the file is being written to trusted.")
   }
 
