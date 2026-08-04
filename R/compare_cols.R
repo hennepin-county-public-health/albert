@@ -9,7 +9,7 @@ compare_cols <- function(df1, df2){ #if ever necessary, could adjust to compare 
 
   mismatches <- df1 |>
     purrr::map(class) |>
-    purrr::bind_rows() |>
+    dplyr::bind_rows() |>
     tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "type1", names_to = "names") |>
     full_join(df2 |>
                 purrr::map(class) |>
