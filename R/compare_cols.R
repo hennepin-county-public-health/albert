@@ -13,7 +13,7 @@ compare_cols <- function(df1, df2){ #if ever necessary, could adjust to compare 
     tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "type1", names_to = "names") |>
     full_join(df2 |>
                 purrr::map(class) |>
-                purrr::list_rbind() |>
+                dplyr::bind_rows() |>
                 tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "type2", names_to = "names"),
               by = "names") #%>%
     #dplyr::filter(type1 != type2) #remove this, can add this behavior afterward
