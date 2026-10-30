@@ -6,25 +6,18 @@
 #' @param name2 name of second matched first name field
 #' @export
 
-#Originally found this data source here: https://github.com/carltonnorthern/nicknames
-#But decided to do this ourselves so we don't need to rely on their update schedule/infrastructure.
+#Current data source is: https://github.com/carltonnorthern/nicknames
+#Previously scraped from: https://www.caagri.org/nicknames.html
 
 flag_nicknames <- function(data, name1 = "first_name_1", name2 = "first_name_2"){
 
   if (!exists('names_to_nicknames')){
 
-    names_to_nicknames <- rvest::read_html("https://www.caagri.org/nicknames.html") |>
-      rvest::html_table() |>
-      purrr::pluck(1) |>
-      dplyr::rename(given_name = 1, nickname = 2) |>
-      dplyr::slice(-1) |>
+    names_to_nicknames <- readr::read_csv("https://raw.githubusercontent.com/carltonnorthern/nicknames/refs/heads/master/names.csv") |>
+      dplyr::select(given_name = name1, nickname = name2) |>
       dplyr::filter(!stringr::str_detect(given_name, "^\\("),
-             given_name != "",
-             !is.na(given_name)) |>
-      #Some given names have multiple combined names. Separate.
-      tidyr::separate_longer_delim(given_name, delim = ",") |>
-      #For ease of matching, move each nickname to it's own row.
-      tidyr::separate_longer_delim(nickname, delim = ",") |>
+                    given_name != "",
+                    !is.na(given_name)) |>
       dplyr::mutate(dplyr::across(tidyselect::everything(), stringr::str_to_upper),
                     dplyr::across(tidyselect::everything(), stringr::str_trim),
                     dplyr::across(tidyselect::everything(), ~stringr::str_remove_all(., " ")),

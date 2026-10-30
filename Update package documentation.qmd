@@ -45,7 +45,6 @@ deps <- c("dplyr",
           "tidyselect",
           
           "readxl", #read
-          "rvest", #flag_nicknames; not part of the core tidyverse
           
           "AzureAuth", #adls functions
           "AzureStor", #adls functions
