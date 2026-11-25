@@ -20,7 +20,7 @@ read_raw_adls <- function(path, endpoint = Sys.getenv("ADLS_ENDPOINT"), containe
   }
 
   #Error if not accessing trusted file
-  if (!(stringr::str_detect(tolower(path), "^[^/]+/trusted/") | stringr::str_detect(tolower(path), "^trusted/"))){
+  if (!(stringr::str_detect(tolower(path), "^[^/]+/trusted/") | stringr::str_detect(tolower(path), "^trusted/")) & str_detect(path, "^public_health")){
     stop("This function is only intended to read trusted data. Verify the specified file is in trusted.")
   }
 
